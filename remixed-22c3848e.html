@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook Fisika – Suhu, Kalor & Perpindahan Kalor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3;
+    --surface: #ffffff;
+    --surface2: #f3efe6;
+    --ink: #1a1612;
+    --ink2: #4a4540;
+    --accent: #c0392b;
+    --accent2: #e67e22;
+    --accent3: #2980b9;
+    --accent4: #27ae60;
+    --gold: #d4a017;
+    --border: #ddd8ce;
+    --shadow: rgba(26,22,18,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--ink);
+    color: #fff;
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.3;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent3) 0%, transparent 70%);
+    opacity: 0.2;
+  }
+  .cover-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover h1 span { color: var(--accent2); }
+  .cover-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 30px;
+  }
+  .cover-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-icon {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .cover-icon span {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* NAV */
+  .toc {
+    background: var(--surface2);
+    border-bottom: 2px solid var(--border);
+    padding: 20px 24px;
+  }
+  .toc h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 12px;
+  }
+  .toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .toc-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .toc-btn:hover, .toc-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* MAIN LAYOUT */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 16px 60px; }
+
+  /* SECTION */
+  .section {
+    margin-top: 40px;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-num {
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .section-title small {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink2);
+    margin-top: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* DEF BOX */
+  .def-box {
+    background: linear-gradient(135deg, #fff9f0 0%, #fff3e0 100%);
+    border-left: 4px solid var(--accent2);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .def-box strong { color: var(--accent); }
+
+  /* FORMULA GRID */
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .formula-box {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .formula-box .f-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .formula-box .f-eq {
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .formula-box .f-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+  .formula-box.blue { background: #1a3a5c; }
+  .formula-box.green { background: #1a3c2c; }
+  .formula-box.red { background: #5c1a1a; }
+
+  /* THERMOMETER SCALE */
+  .scale-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 14px 0;
+  }
+  .scale-table th {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .scale-table td {
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .scale-table tr:nth-child(even) td { background: var(--surface2); }
+  .scale-table .highlight td { background: #fff3e0; font-weight: 600; }
+
+  /* CONVERSION VISUAL */
+  .conv-visual {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 16px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+  }
+  .conv-item {
+    flex: 1;
+    padding: 16px 12px;
+    text-align: center;
+    background: var(--surface);
+  }
+  .conv-item + .conv-item {
+    border-left: 1px solid var(--border);
+  }
+  .conv-item .ci-scale {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 4px;
+  }
+  .conv-item .ci-didih { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .conv-item .ci-beku { font-size: 14px; color: var(--accent3); }
+  .conv-item .ci-bar {
+    width: 4px; height: 40px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent3));
+    border-radius: 2px;
+    margin: 8px auto;
+  }
+
+  /* INFO CHIPS */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1.5px solid;
+  }
+  .chip.orange { background: #fff3e0; border-color: var(--accent2); color: #a0522d; }
+  .chip.blue { background: #e3f0fb; border-color: var(--accent3); color: #1a3a5c; }
+  .chip.green { background: #e8f8ee; border-color: var(--accent4); color: #1a4a2a; }
+  .chip.red { background: #fdecea; border-color: var(--accent); color: #7a1a1a; }
+
+  /* PERPINDAHAN KALOR */
+  .method-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .method-card {
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .method-card::before {
+    content: attr(data-emoji);
+    position: absolute;
+    top: -10px; right: -10px;
+    font-size: 60px;
+    opacity: 0.1;
+  }
+  .method-card.konduksi { background: #1a1a2e; color: #fff; }
+  .method-card.konveksi { background: #1a2e1a; color: #fff; }
+  .method-card.radiasi { background: #2e1a1a; color: #fff; }
+  .method-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .method-card p { font-size: 12px; line-height: 1.6; opacity: 0.8; margin-bottom: 12px; }
+  .method-card .mc-formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    background: rgba(255,255,255,0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .method-card .mc-vars { font-size: 11px; opacity: 0.6; line-height: 1.8; }
+
+  /* EXERCISE SECTION */
+  .exercise-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .ex-header {
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .ex-num {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ex-q { font-size: 13px; flex: 1; line-height: 1.5; }
+  .ex-toggle { font-size: 18px; transition: transform 0.3s; }
+  .ex-toggle.open { transform: rotate(180deg); }
+  .ex-body {
+    padding: 20px;
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+  .ex-body.show { display: block; }
+  .ex-choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 14px 0;
+  }
+  .ex-choice {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .ex-choice:hover { border-color: var(--accent3); background: #e3f0fb; }
+  .ex-choice.correct { border-color: var(--accent4); background: #e8f8ee; color: #1a4a2a; font-weight: 600; }
+  .ex-choice.wrong { border-color: var(--accent); background: #fdecea; color: #7a1a1a; }
+  .ex-letter { font-weight: 700; min-width: 18px; }
+  .ex-solution {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 14px;
+    display: none;
+  }
+  .ex-solution.show { display: block; }
+  .ex-solution h4 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent4);
+    margin-bottom: 10px;
+  }
+  .ex-solution p, .ex-solution li {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .ex-solution .sol-step {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 6px 0;
+  }
+  .ex-solution .sol-ans {
+    background: var(--ink);
+    color: var(--accent2);
+    font-family: 'DM Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .check-btn {
+    background: var(--accent3);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .check-btn:hover { background: #1a6fa0; }
+
+  /* KALOR LATEN */
+  .phase-diagram {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: 24px;
+    margin: 16px 0;
+    color: #fff;
+  }
+  .phase-diagram h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: var(--accent2);
+  }
+  .phase-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 8px 0;
+  }
+  .phase-state {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 80px;
+  }
+  .phase-arrow {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 8px;
+  }
+  .phase-arrow .arrow-label {
+    font-size: 10px;
+    color: var(--accent2);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2px;
+  }
+  .phase-arrow .arrow-line {
+    width: 100%;
+    height: 2px;
+    background: var(--accent2);
+    position: relative;
+  }
+  .phase-arrow .arrow-line::after {
+    content: '▶';
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    font-size: 10px;
+    color: var(--accent2);
+  }
+
+  /* ASAS BLACK */
+  .asas-visual {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface2);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 14px 0;
+  }
+  .av-item {
+    flex: 1;
+    text-align: center;
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 16px;
+    border: 1.5px solid var(--border);
+  }
+  .av-item .av-temp { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  .av-item .av-label { font-size: 11px; color: var(--ink2); text-transform: uppercase; letter-spacing: 1px; }
+  .av-arrow { font-size: 24px; color: var(--accent2); }
+  .av-item.hot .av-temp { color: var(--accent); }
+  .av-item.cold .av-temp { color: var(--accent3); }
+  .av-item.eq .av-temp { color: var(--accent4); }
+
+  /* PEMUAIAN */
+  .expand-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .expand-card {
+    border-radius: 12px;
+    padding: 18px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    text-align: center;
+  }
+  .expand-card .ec-icon { font-size: 30px; margin-bottom: 10px; }
+  .expand-card .ec-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .expand-card .ec-formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin: 6px 0;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .expand-card .ec-note { font-size: 11px; color: var(--ink2); line-height: 1.5; }
+
+  /* VARS TABLE */
+  .vars-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin: 12px 0;
+  }
+  .vars-table th {
+    background: var(--surface2);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink2);
+    border-bottom: 2px solid var(--border);
+  }
+  .vars-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.5;
+  }
+  .vars-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    color: var(--accent);
+    min-width: 50px;
+  }
+
+  /* SUMMARY BADGE */
+  .summary-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .sum-badge {
+    background: var(--ink);
+    color: #fff;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 140px;
+  }
+  .sum-badge .sb-title { color: var(--accent2); font-weight: 700; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+  .sum-badge .sb-val { font-family: 'DM Mono', monospace; font-size: 15px; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 30px 16px;
+    color: var(--ink2);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 10px 0;
+  }
+
+  /* HIGHLIGHT TEXT */
+  .hl-red { color: var(--accent); font-weight: 600; }
+  .hl-blue { color: var(--accent3); font-weight: 600; }
+  .hl-green { color: var(--accent4); font-weight: 600; }
+  .hl-orange { color: var(--accent2); font-weight: 600; }
+
+  p.body-text { font-size: 14px; line-height: 1.7; color: var(--ink); margin-bottom: 10px; }
+
+  /* INTERACTIVE CONVERTER */
+  .converter {
+    background: var(--ink);
+    border-radius: 14px;
+    padding: 24px;
+    margin: 16px 0;
+    color: #fff;
+  }
+  .converter h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--accent2);
+    margin-bottom: 16px;
+  }
+  .conv-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .conv-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    min-width: 100px;
+    font-weight: 500;
+  }
+  .conv-input {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    width: 120px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .conv-input:focus { border-color: var(--accent2); }
+  .conv-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .conv-result-item {
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .conv-result-item .cri-label { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .conv-result-item .cri-val { font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 500; color: var(--accent2); }
+  .conv-select {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    .formula-grid { grid-template-columns: 1fr; }
+    .ex-choices { grid-template-columns: 1fr; }
+    .method-cards { grid-template-columns: 1fr; }
+    .cover-icons { flex-wrap: wrap; }
+    .conv-row { flex-direction: column; align-items: flex-start; }
+    .asas-visual { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-tag">Fisika SMA • Bab 10</div>
+  <h1>Suhu, <span>Kalor</span> &<br>Perpindahan Kalor</h1>
+  <p class="cover-sub">Workbook Lengkap dengan Latihan Soal Interaktif</p>
+  <div class="cover-icons">
+    <div class="cover-icon">🌡️<span>Suhu</span></div>
+    <div class="cover-icon">🔥<span>Kalor</span></div>
+    <div class="cover-icon">⚡<span>Konduksi</span></div>
+    <div class="cover-icon">🌊<span>Konveksi</span></div>
+    <div class="cover-icon">☀️<span>Radiasi</span></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>📋 Daftar Materi</h2>
+  <div class="toc-list">
+    <a class="toc-btn" href="#suhu">1. Suhu</a>
+    <a class="toc-btn" href="#termometer">2. Termometer & Skala</a>
+    <a class="toc-btn" href="#konversi">3. Konversi Suhu</a>
+    <a class="toc-btn" href="#kalor">4. Kalor</a>
+    <a class="toc-btn" href="#asas-black">5. Asas Black</a>
+    <a class="toc-btn" href="#kalor-laten">6. Kalor Laten</a>
+    <a class="toc-btn" href="#perpindahan">7. Perpindahan Kalor</a>
+    <a class="toc-btn" href="#pemuaian">8. Pemuaian</a>
+    <a class="toc-btn" href="#latihan">🎯 Latihan Soal</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION 1: SUHU -->
+  <div class="section" id="suhu">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">Suhu (Temperature)<small>Besaran yang mengukur derajat panas dinginnya suatu benda</small></div>
+    </div>
+
+    <div class="def-box">
+      <strong>Suhu</strong> adalah besaran yang menunjukkan ukuran derajat panas atau dinginnya suatu benda. Satuan suhu dalam SI adalah <strong>Kelvin (K)</strong>. Suhu berkorelasi dengan besar kecepatan partikel penyusun benda.
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔬 Hubungan Suhu & Partikel</div>
+      <p class="body-text">Semakin cepat gerakan partikel dalam suatu benda, semakin banyak tumbukan antar partikel. Gesekan ini menyebabkan sistem semakin panas.</p>
+      <div class="chip-row">
+        <span class="chip orange">⬆️ Kecepatan partikel tinggi → Suhu tinggi</span>
+        <span class="chip blue">⬇️ Kecepatan partikel rendah → Suhu rendah</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📐 Pemuaian akibat Suhu</div>
+      <p class="body-text">Suatu zat akan <strong>memuai</strong> (bertambah ukuran) ketika dipanaskan. Begitu pula sebaliknya — saat didinginkan, zat akan menyusut.</p>
+      <div class="chip-row">
+        <span class="chip red">Contoh: 30 mL air pada 25°C → 30,2 mL pada 30°C → 29,8 mL pada 10°C</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: TERMOMETER -->
+  <div class="section" id="termometer">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">Termometer & Skala Suhu<small>Alat ukur suhu dan empat sistem skala yang digunakan</small></div>
+    </div>
+
+    <div class="def-box">
+      <strong>Termometer</strong> adalah alat untuk mengukur suhu. Prinsip kerjanya memanfaatkan perubahan fisik benda akibat perubahan suhu. Termometer raksa bekerja karena saat suhu naik, raksa memuai dan volumenya meningkat.
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌡️ Empat Skala Termometer</div>
+      <p class="body-text">Patokan skala termometer adalah <strong>titik beku</strong> dan <strong>titik didih</strong> air:</p>
+      <div class="conv-visual">
+        <div class="conv-item">
+          <div class="ci-scale">Celsius</div>
+          <div class="ci-didih">100°C</div>
+          <div class="ci-bar"></div>
+          <div class="ci-beku">0°C</div>
+        </div>
+        <div class="conv-item">
+          <div class="ci-scale">Reamur</div>
+          <div class="ci-didih">80°R</div>
+          <div class="ci-bar"></div>
+          <div class="ci-beku">0°R</div>
+        </div>
+        <div class="conv-item">
+          <div class="ci-scale">Fahrenheit</div>
+          <div class="ci-didih">212°F</div>
+          <div class="ci-bar"></div>
+          <div class="ci-beku">32°F</div>
+        </div>
+        <div class="conv-item">
+          <div class="ci-scale">Kelvin</div>
+          <div class="ci-didih">373 K</div>
+          <div class="ci-bar"></div>
+          <div class="ci-beku">273 K</div>
+        </div>
+        <div class="conv-item">
+          <div class="ci-scale">Rankine</div>
+          <div class="ci-didih">250°Ra</div>
+          <div class="ci-bar"></div>
+          <div class="ci-beku">50°Ra</div>
+        </div>
+      </div>
+      <table class="scale-table">
+        <thead>
+          <tr><th>Skala</th><th>Simbol</th><th>Titik Beku Air</th><th>Titik Didih Air</th><th>Rentang</th></tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td>Celsius</td><td>°C</td><td>0°C</td><td>100°C</td><td>100</td></tr>
+          <tr><td>Reamur</td><td>°R</td><td>0°R</td><td>80°R</td><td>80</td></tr>
+          <tr><td>Fahrenheit</td><td>°F</td><td>32°F</td><td>212°F</td><td>180</td></tr>
+          <tr><td>Kelvin</td><td>K</td><td>273 K</td><td>373 K</td><td>100</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 3: KONVERSI SUHU -->
+  <div class="section" id="konversi">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">Konversi Suhu<small>Rumus-rumus mengubah antar skala termometer</small></div>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box">
+        <div class="f-label">Celsius → Kelvin</div>
+        <div class="f-eq">K = °C + 273</div>
+        <div class="f-desc">Tambahkan 273 ke nilai Celsius</div>
+      </div>
+      <div class="formula-box blue">
+        <div class="f-label">Celsius → Fahrenheit</div>
+        <div class="f-eq">°F = 9/5 °C + 32</div>
+        <div class="f-desc">Kalikan 9/5 lalu tambah 32</div>
+      </div>
+      <div class="formula-box green">
+        <div class="f-label">Celsius → Reamur</div>
+        <div class="f-eq">°R = 4/5 °C</div>
+        <div class="f-desc">Kalikan dengan faktor 4/5</div>
+      </div>
+      <div class="formula-box red">
+        <div class="f-label">Hubungan Umum</div>
+        <div class="f-eq">C/100 = R/80 = (F-32)/180 = (K-273)/100</div>
+        <div class="f-desc">Perbandingan semua skala</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔄 Konversi Dua Termometer Sembarang (X & Y)</div>
+      <p class="body-text">Jika ada dua termometer X dan Y, berlaku perbandingan:</p>
+      <div style="background: var(--surface2); border-radius: 10px; padding: 16px; text-align: center; margin: 10px 0;">
+        <div style="font-family: 'DM Mono', monospace; font-size: 18px; color: var(--ink);">
+          (X – X<sub>beku</sub>) / (X<sub>didih</sub> – X<sub>beku</sub>) = (Y – Y<sub>beku</sub>) / (Y<sub>didih</sub> – Y<sub>beku</sub>)
+        </div>
+      </div>
+      <p class="body-text" style="font-size: 13px; color: var(--ink2);">dimana X<sub>beku</sub> & X<sub>didih</sub> = titik beku & didih pada skala X, demikian pula untuk Y.</p>
+    </div>
+
+    <!-- INTERACTIVE CONVERTER -->
+    <div class="converter">
+      <h3>🔄 Kalkulator Konversi Suhu Interaktif</h3>
+      <div class="conv-row">
+        <span class="conv-label">Masukkan nilai:</span>
+        <input type="number" class="conv-input" id="inputTemp" value="30" oninput="convertTemp()">
+        <select class="conv-select" id="inputScale" onchange="convertTemp()">
+          <option value="C">°C (Celsius)</option>
+          <option value="F">°F (Fahrenheit)</option>
+          <option value="K">K (Kelvin)</option>
+          <option value="R">°R (Reamur)</option>
+        </select>
+      </div>
+      <div class="conv-results" id="convResults">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: KALOR -->
+  <div class="section" id="kalor">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">Kalor (Heat)<small>Energi panas yang berpindah antar benda karena perbedaan suhu</small></div>
+    </div>
+
+    <div class="def-box">
+      <strong>Kalor (Q)</strong> adalah energi panas yang berpindah dari benda bersuhu <strong>lebih tinggi</strong> ke benda bersuhu <strong>lebih rendah</strong>. Satuan kalor dalam SI adalah <strong>Joule (J)</strong>. Ketika dua zat berbeda suhu dikontak, terjadi perpindahan kalor sampai suhu keduanya sama.
+    </div>
+
+    <div class="card">
+      <div class="card-title">📏 Besarnya Kalor yang Diserap/Dilepas</div>
+      <p class="body-text">Besarnya kalor bergantung pada <strong>massa</strong>, <strong>kalor jenis</strong>, dan <strong>perubahan suhu</strong>:</p>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <div class="f-label">Kalor (Q)</div>
+          <div class="f-eq">Q = m · c · ΔT</div>
+          <div class="f-desc">Rumus utama kalor sensibel</div>
+        </div>
+        <div class="formula-box blue">
+          <div class="f-label">Kapasitas Kalor</div>
+          <div class="f-eq">Q = C · ΔT</div>
+          <div class="f-desc">C = m·c = kapasitas kalor benda</div>
+        </div>
+      </div>
+      <table class="vars-table">
+        <thead><tr><th>Simbol</th><th>Besaran</th><th>Satuan</th></tr></thead>
+        <tbody>
+          <tr><td>Q</td><td>Kalor yang diserap/dilepas</td><td>Joule (J) atau kalori</td></tr>
+          <tr><td>m</td><td>Massa benda</td><td>kg</td></tr>
+          <tr><td>c</td><td>Kalor jenis benda</td><td>J/kg·K atau kal/g·°C</td></tr>
+          <tr><td>ΔT</td><td>Perubahan suhu (T – T₀)</td><td>°C atau K</td></tr>
+          <tr><td>C</td><td>Kapasitas kalor benda (= m·c)</td><td>J/K atau kal/°C</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📊 Kapasitas Kalor (C)</div>
+      <p class="body-text">Kapasitas kalor adalah besar kalor yang dibutuhkan untuk meningkatkan suhu satu benda sebesar 1°C:</p>
+      <div style="background: var(--surface2); border-radius: 10px; padding: 16px; margin: 10px 0;">
+        <div style="font-family: 'DM Mono', monospace; font-size: 18px; text-align: center; color: var(--ink);">C = Q / ΔT &nbsp;→&nbsp; Q = C · ΔT</div>
+      </div>
+      <div class="chip-row">
+        <span class="chip orange">Q positif → sistem menerima kalor</span>
+        <span class="chip blue">Q negatif → sistem melepas kalor</span>
+      </div>
+      <p class="body-text" style="margin-top: 10px;"><strong>Contoh:</strong> Jika suatu benda memiliki kapasitas kalor C = 2,2 kJ/°C, dan ΔT = 2°C, maka Q = C × ΔT = 2,2 × 2 = 4,4 kJ.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💧 Kalor Jenis Beberapa Zat</div>
+      <table class="scale-table">
+        <thead><tr><th>Zat</th><th>c (J/kg·K)</th><th>c (kal/g·°C)</th></tr></thead>
+        <tbody>
+          <tr><td>Air</td><td>4.200</td><td>1</td></tr>
+          <tr><td>Es</td><td>2.100</td><td>0,5</td></tr>
+          <tr><td>Uap air</td><td>2.010</td><td>0,48</td></tr>
+          <tr><td>Besi</td><td>450</td><td>0,107</td></tr>
+          <tr><td>Tembaga</td><td>385</td><td>0,092</td></tr>
+          <tr><td>Aluminium</td><td>900</td><td>0,215</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 5: ASAS BLACK -->
+  <div class="section" id="asas-black">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">Asas Black<small>Hukum kekekalan energi kalor dalam sistem tertutup</small></div>
+    </div>
+
+    <div class="def-box">
+      <strong>Asas Black</strong> menyatakan: <em>"Pada pencampuran dua zat, jumlah kalor yang dilepas oleh zat panas akan sama dengan jumlah kalor yang diterima zat dingin."</em>
+      Secara matematis: <strong>Q<sub>lepas</sub> = Q<sub>terima</sub></strong>
+    </div>
+
+    <div class="asas-visual">
+      <div class="av-item hot">
+        <div class="av-temp">T₁ > T₂</div>
+        <div class="av-label">Benda Panas</div>
+        <div style="font-size: 12px; color: var(--accent); margin-top: 6px;">Melepas kalor: Q<sub>lepas</sub></div>
+      </div>
+      <div class="av-arrow">⇄</div>
+      <div class="av-item eq">
+        <div class="av-temp">T<sub>a</sub></div>
+        <div class="av-label">Suhu Kesetimbangan</div>
+        <div style="font-size: 12px; color: var(--accent4); margin-top: 6px;">Q<sub>lepas</sub> = Q<sub>terima</sub></div>
+      </div>
+      <div class="av-arrow">⇄</div>
+      <div class="av-item cold">
+        <div class="av-temp">T₁ < T₂</div>
+        <div class="av-label">Benda Dingin</div>
+        <div style="font-size: 12px; color: var(--accent3); margin-top: 6px;">Menerima kalor: Q<sub>terima</sub></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📐 Persamaan Asas Black</div>
+      <div style="background: var(--surface2); border-radius: 10px; padding: 16px; margin: 10px 0;">
+        <div style="font-family: 'DM Mono', monospace; font-size: 15px; text-align: center; color: var(--ink); line-height: 2;">
+          m₁ · c₁ · (T₁ – Tₐ) = m₂ · c₂ · (Tₐ – T₂)<br>
+          <span style="font-size: 12px; color: var(--ink2);">di mana Tₐ = suhu kesetimbangan akhir</span>
+        </div>
+      </div>
+      <p class="body-text"><strong>Syarat:</strong> Berlaku pada sistem tertutup dan sempurna (tidak ada kalor yang hilang ke lingkungan).</p>
+    </div>
+  </div>
+
+  <!-- SECTION 6: KALOR LATEN -->
+  <div class="section" id="kalor-laten">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">Kalor Laten & Perubahan Wujud<small>Kalor yang dibutuhkan untuk perubahan fase/wujud zat</small></div>
+    </div>
+
+    <div class="def-box">
+      <strong>Kalor Laten (L)</strong> adalah banyaknya kalor yang diperlukan untuk mengubah wujud 1 gram zat tanpa mengubah suhunya. Rumus: <strong>Q = m · L</strong>
+    </div>
+
+    <div class="formula-grid">
+      <div class="formula-box">
+        <div class="f-label">Kalor Laten</div>
+        <div class="f-eq">Q = m · L</div>
+        <div class="f-desc">Q=kalor (J), m=massa (kg), L=kalor laten (J/kg)</div>
+      </div>
+      <div class="formula-box blue">
+        <div class="f-label">Kalor Lebur Es</div>
+        <div class="f-eq">L = 80 kal/g</div>
+        <div class="f-desc">= 336.000 J/kg</div>
+      </div>
+      <div class="formula-box green">
+        <div class="f-label">Kalor Uap Air</div>
+        <div class="f-eq">L = 540 kal/g</div>
+        <div class="f-desc">= 2.260.000 J/kg</div>
+      </div>
+    </div>
+
+    <div class="phase-diagram">
+      <h3>🔄 Diagram Perubahan Wujud Zat</h3>
+      <div class="phase-row">
+        <div class="phase-state">ES (Padat)</div>
+        <div class="phase-arrow">
+          <div class="arrow-label">Melebur (Q₂ = m·L_lebur)</div>
+          <div class="arrow-line"></div>
+        </div>
+        <div class="phase-state">AIR (Cair)</div>
+        <div class="phase-arrow">
+          <div class="arrow-label">Menguap (Q₄ = m·L_uap)</div>
+          <div class="arrow-line"></div>
+        </div>
+        <div class="phase-state">UAP (Gas)</div>
+      </div>
+      <div style="margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.6); line-height: 2;">
+        <div>• Q₁ = kalor untuk naikkan suhu es dari T₀ ke 0°C &nbsp;→&nbsp; Q = m·c_es·ΔT</div>
+        <div>• Q₂ = kalor untuk melebur es (0°C) &nbsp;→&nbsp; Q = m·L_lebur</div>
+        <div>• Q₃ = kalor untuk naikkan suhu air dari 0°C ke 100°C &nbsp;→&nbsp; Q = m·c_air·ΔT</div>
+        <div>• Q₄ = kalor untuk menguapkan air (100°C) &nbsp;→&nbsp; Q = m·L_uap</div>
+        <div style="margin-top: 8px; color: var(--accent2);">• Q_total = Q₁ + Q₂ + Q₃ + Q₄</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: PERPINDAHAN KALOR -->
+  <div class="section" id="perpindahan">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">Perpindahan Kalor<small>Tiga cara kalor merambat: konduksi, konveksi, dan radiasi</small></div>
+    </div>
+
+    <div class="def-box">
+      Kalor dapat menjalar dari satu zat ke zat lainnya melalui tiga cara: <strong class="hl-red">Konduksi</strong>, <strong class="hl-green">Konveksi</strong>, dan <strong class="hl-orange">Radiasi</strong>.
+    </div>
+
+    <div class="method-cards">
+      <div class="method-card konduksi" data-emoji="🔩">
+        <h3>⚙️ Konduksi</h3>
+        <p>Perpindahan kalor <strong>tanpa disertai perpindahan partikel</strong>. Terjadi pada zat padat. Energi berpindah melalui getaran partikel.</p>
+        <div class="mc-formula">P = kA · ΔT / L</div>
+        <div class="mc-vars">
+          P = laju kalor (J/s = Watt)<br>
+          k = konduktivitas termal (J/s·m·K)<br>
+          A = luas penampang (m²)<br>
+          ΔT = perbedaan suhu (K)<br>
+          L = panjang penghantar (m)
+        </div>
+      </div>
+      <div class="method-card konveksi" data-emoji="🌊">
+        <h3>🌊 Konveksi</h3>
+        <p>Perpindahan kalor yang <strong>disertai perpindahan partikel zat</strong> akibat perbedaan massa jenis fluida.</p>
+        <div class="mc-formula">H = Q/t = h · A · ΔT</div>
+        <div class="mc-vars">
+          H = laju kalor konveksi (J/s)<br>
+          h = koefisien konveksi termal<br>
+          A = luas penampang aliran (m²)<br>
+          ΔT = perubahan suhu (K)
+        </div>
+      </div>
+      <div class="method-card radiasi" data-emoji="☀️">
+        <h3>☀️ Radiasi</h3>
+        <p>Perpindahan energi kalor dalam bentuk <strong>gelombang elektromagnetik</strong>. Tidak memerlukan medium.</p>
+        <div class="mc-formula">P = e · σ · A · T⁴</div>
+        <div class="mc-vars">
+          P = laju energi radiasi (Watt)<br>
+          e = emisivitas (0 ≤ e ≤ 1)<br>
+          σ = 5,67 × 10⁻⁸ W/m²K⁴ (Stefan-Boltzmann)<br>
+          A = luas permukaan (m²)<br>
+          T = suhu benda (K)
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚙️ Konduksi: Dua Batang Berbeda</div>
+      <p class="body-text">Jika dua batang logam berbeda jenis disambungkan, laju hantaran kalornya sama:</p>
+      <div style="background: var(--surface2); border-radius: 10px; padding: 16px; margin: 10px 0;">
+        <div style="font-family: 'DM Mono', monospace; font-size: 15px; text-align: center; color: var(--ink);">
+          k₁ · A₁ · ΔT₁/L₁ = k₂ · A₂ · ΔT₂/L₂
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: PEMUAIAN -->
+  <div class="section" id="pemuaian">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div class="section-title">Pemuaian<small>Bertambahnya ukuran benda akibat kenaikan suhu</small></div>
+    </div>
+
+    <div class="def-box">
+      <strong>Pemuaian</strong> adalah bertambah besarnya ukuran suatu benda karena kenaikan suhu. Ada tiga jenis: pemuaian panjang, pemuaian luas, dan pemuaian volume.
+    </div>
+
+    <div class="expand-cards">
+      <div class="expand-card">
+        <div class="ec-icon">📏</div>
+        <div class="ec-title">Pemuaian Panjang</div>
+        <div class="ec-formula">ΔL = α · L₀ · ΔT</div>
+        <div class="ec-note">α = koefisien muai panjang (/°C atau /K)<br>L₀ = panjang mula-mula (m)</div>
+      </div>
+      <div class="expand-card">
+        <div class="ec-icon">📐</div>
+        <div class="ec-title">Pemuaian Luas</div>
+        <div class="ec-formula">ΔA = β · A₀ · ΔT</div>
+        <div class="ec-note">β = 2α = koefisien muai luas<br>A₀ = luas mula-mula (m²)</div>
+      </div>
+      <div class="expand-card">
+        <div class="ec-icon">📦</div>
+        <div class="ec-title">Pemuaian Volume</div>
+        <div class="ec-formula">ΔV = γ · V₀ · ΔT</div>
+        <div class="ec-note">γ = 3α = koefisien muai volume<br>V₀ = volume mula-mula (m³)</div>
+      </div>
+      <div class="expand-card">
+        <div class="ec-icon">💧</div>
+        <div class="ec-title">Pemuaian Zat Cair</div>
+        <div class="ec-formula">ΔV = γ · V₀ · ΔT</div>
+        <div class="ec-note">Hanya pemuaian volume/ruang. Massa tetap, sehingga massa jenis berkurang.</div>
+      </div>
+      <div class="expand-card">
+        <div class="ec-icon">💨</div>
+        <div class="ec-title">Pemuaian Gas</div>
+        <div class="ec-formula">γ_gas = 1/273°C</div>
+        <div class="ec-note">Hukum Boyle: p₁V₁ = p₂V₂ (isotermis)<br>Hukum Charles: V/T = konstan (isobarik)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 Hukum Gas</div>
+      <div class="formula-grid">
+        <div class="formula-box">
+          <div class="f-label">Hukum Boyle (Isotermis)</div>
+          <div class="f-eq">p₁V₁ = p₂V₂</div>
+          <div class="f-desc">Suhu tetap</div>
+        </div>
+        <div class="formula-box blue">
+          <div class="f-label">Hukum Charles (Isobarik)</div>
+          <div class="f-eq">V₁/T₁ = V₂/T₂</div>
+          <div class="f-desc">Tekanan tetap, T dalam Kelvin</div>
+        </div>
+        <div class="formula-box green">
+          <div class="f-label">Gay-Lussac (Isokhorik)</div>
+          <div class="f-eq">p₁/T₁ = p₂/T₂</div>
+          <div class="f-desc">Volume tetap, T dalam Kelvin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num" style="background: var(--gold);">★</div>
+      <div class="section-title">Ringkasan Rumus Penting<small>Kumpulan semua formula yang harus dikuasai</small></div>
+    </div>
+    <div class="summary-row">
+      <div class="sum-badge"><div class="sb-title">Konversi K</div><div class="sb-val">K = °C + 273</div></div>
+      <div class="sum-badge"><div class="sb-title">Konversi F</div><div class="sb-val">°F = 9/5 °C + 32</div></div>
+      <div class="sum-badge"><div class="sb-title">Konversi R</div><div class="sb-val">°R = 4/5 °C</div></div>
+      <div class="sum-badge"><div class="sb-title">Kalor</div><div class="sb-val">Q = mcΔT</div></div>
+      <div class="sum-badge"><div class="sb-title">Kapasitas Kalor</div><div class="sb-val">Q = CΔT</div></div>
+      <div class="sum-badge"><div class="sb-title">Kalor Laten</div><div class="sb-val">Q = mL</div></div>
+      <div class="sum-badge"><div class="sb-title">Asas Black</div><div class="sb-val">Q_lepas = Q_terima</div></div>
+      <div class="sum-badge"><div class="sb-title">Konduksi</div><div class="sb-val">P = kAΔT/L</div></div>
+      <div class="sum-badge"><div class="sb-title">Radiasi</div><div class="sb-val">P = eσAT⁴</div></div>
+      <div class="sum-badge"><div class="sb-title">Muai Panjang</div><div class="sb-val">ΔL = αL₀ΔT</div></div>
+      <div class="sum-badge"><div class="sb-title">Muai Volume</div><div class="sb-val">ΔV = γV₀ΔT</div></div>
+      <div class="sum-badge"><div class="sb-title">Hukum Boyle</div><div class="sb-val">p₁V₁ = p₂V₂</div></div>
+    </div>
+  </div>
+
+  <!-- LATIHAN SOAL -->
+  <div class="section" id="latihan">
+    <div class="section-header">
+      <div class="section-num" style="background: var(--accent);">🎯</div>
+      <div class="section-title">Latihan Soal<small>Klik soal untuk lihat pilihan jawaban. Klik lagi untuk solusi lengkap.</small></div>
+    </div>
+
+    <!-- SOAL 1 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(1)">
+        <div class="ex-num">1</div>
+        <div class="ex-q">Termometer Fahrenheit menunjukkan suhu 101°F. Suhu tersebut setara dengan berapa derajat Celsius?</div>
+        <div class="ex-toggle" id="tog1">▼</div>
+      </div>
+      <div class="ex-body" id="body1">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(1,'A')"><span class="ex-letter">A.</span> 18,3°C</div>
+          <div class="ex-choice" onclick="checkAns(1,'B')"><span class="ex-letter">B.</span> 28,3°C</div>
+          <div class="ex-choice" onclick="checkAns(1,'C')"><span class="ex-letter">C.</span> 38,3°C</div>
+          <div class="ex-choice" onclick="checkAns(1,'D')"><span class="ex-letter">D.</span> 48,3°C</div>
+          <div class="ex-choice" onclick="checkAns(1,'E')"><span class="ex-letter">E.</span> 58,3°C</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(1)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol1">
+          <h4>✅ Pembahasan</h4>
+          <p>Gunakan rumus konversi Fahrenheit ke Celsius:</p>
+          <div class="sol-step">°C = 5/9 × (°F – 32)</div>
+          <div class="sol-step">°C = 5/9 × (101 – 32)</div>
+          <div class="sol-step">°C = 5/9 × 69</div>
+          <div class="sol-step">°C = 345/9 = 38,3°C</div>
+          <div class="sol-ans">Jawaban: C. 38,3°C</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 2 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(2)">
+        <div class="ex-num">2</div>
+        <div class="ex-q">Termometer X: titik beku = –30°X, titik didih = 90°X. Suhu 60°X setara dengan berapa °C?</div>
+        <div class="ex-toggle" id="tog2">▼</div>
+      </div>
+      <div class="ex-body" id="body2">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(2,'A')"><span class="ex-letter">A.</span> 20°C</div>
+          <div class="ex-choice" onclick="checkAns(2,'B')"><span class="ex-letter">B.</span> 45°C</div>
+          <div class="ex-choice" onclick="checkAns(2,'C')"><span class="ex-letter">C.</span> 50°C</div>
+          <div class="ex-choice" onclick="checkAns(2,'D')"><span class="ex-letter">D.</span> 75°C</div>
+          <div class="ex-choice" onclick="checkAns(2,'E')"><span class="ex-letter">E.</span> 80°C</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(2)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol2">
+          <h4>✅ Pembahasan</h4>
+          <p>Gunakan rumus perbandingan dua termometer:</p>
+          <div class="sol-step">(X – X₀) / (X₁ – X₀) = (C – C₀) / (C₁ – C₀)</div>
+          <div class="sol-step">(60 – (–30)) / (90 – (–30)) = (C – 0) / (100 – 0)</div>
+          <div class="sol-step">90 / 120 = C / 100</div>
+          <div class="sol-step">C = (90/120) × 100 = ¾ × 100 = 75°C</div>
+          <div class="sol-ans">Jawaban: D. 75°C</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 3 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(3)">
+        <div class="ex-num">3</div>
+        <div class="ex-q">100 gram air bersuhu 20°C diubah menjadi es. Besar kalor yang dilepaskan adalah… (c_air = 1 kal/g°C, L_es = 80 kal/g)</div>
+        <div class="ex-toggle" id="tog3">▼</div>
+      </div>
+      <div class="ex-body" id="body3">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(3,'A')"><span class="ex-letter">A.</span> 25 kkal</div>
+          <div class="ex-choice" onclick="checkAns(3,'B')"><span class="ex-letter">B.</span> 15 kkal</div>
+          <div class="ex-choice" onclick="checkAns(3,'C')"><span class="ex-letter">C.</span> 10 kkal</div>
+          <div class="ex-choice" onclick="checkAns(3,'D')"><span class="ex-letter">D.</span> 5 kkal</div>
+          <div class="ex-choice" onclick="checkAns(3,'E')"><span class="ex-letter">E.</span> 1 kkal</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(3)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol3">
+          <h4>✅ Pembahasan</h4>
+          <p>Ada 2 proses: menurunkan suhu air dari 20°C ke 0°C, lalu membekukan air:</p>
+          <div class="sol-step">Q₁ = m·c·ΔT = 100 × 1 × (20–0) = 2.000 kal</div>
+          <div class="sol-step">Q₂ = m·L = 100 × 80 = 8.000 kal</div>
+          <div class="sol-step">Q_total = Q₁ + Q₂ = 2.000 + 8.000 = 10.000 kal = 10 kkal</div>
+          <div class="sol-ans">Jawaban: C. 10 kilokalori</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 4 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(4)">
+        <div class="ex-num">4</div>
+        <div class="ex-q">Kalorimeter berisi 200 g air 20°C. Dimasukkan 220 g air 60°C. Suhu campuran = 40°C. Kapasitas kalor kalorimeter adalah…</div>
+        <div class="ex-toggle" id="tog4">▼</div>
+      </div>
+      <div class="ex-body" id="body4">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(4,'A')"><span class="ex-letter">A.</span> 1,01 kal/°C</div>
+          <div class="ex-choice" onclick="checkAns(4,'B')"><span class="ex-letter">B.</span> 20 kal/°C</div>
+          <div class="ex-choice" onclick="checkAns(4,'C')"><span class="ex-letter">C.</span> 22 kal/°C</div>
+          <div class="ex-choice" onclick="checkAns(4,'D')"><span class="ex-letter">D.</span> 40 kal/°C</div>
+          <div class="ex-choice" onclick="checkAns(4,'E')"><span class="ex-letter">E.</span> 62 kal/°C</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(4)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol4">
+          <h4>✅ Pembahasan</h4>
+          <p>Asas Black: Q_lepas = Q_serap (air panas melepas kalor ke air dingin + kalorimeter)</p>
+          <div class="sol-step">m₁·c·ΔT₁ = m₂·c·ΔT₂ + Cₖ·ΔT₂</div>
+          <div class="sol-step">220 × 1 × (60–40) = 200 × 1 × (40–20) + Cₖ × (40–20)</div>
+          <div class="sol-step">220 × 20 = 200 × 20 + Cₖ × 20</div>
+          <div class="sol-step">4.400 = 4.000 + Cₖ × 20</div>
+          <div class="sol-step">Cₖ × 20 = 400 → Cₖ = 20 kal/°C</div>
+          <div class="sol-ans">Jawaban: B. 20 kal/°C</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 5 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(5)">
+        <div class="ex-num">5</div>
+        <div class="ex-q">Batang besi homogen panjang 1 m, A = 17 cm², k = 4×10⁵ J/msK, ΔT = 30°K. Kalor yang merambat dalam 2 detik adalah…</div>
+        <div class="ex-toggle" id="tog5">▼</div>
+      </div>
+      <div class="ex-body" id="body5">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(5,'A')"><span class="ex-letter">A.</span> 1,13 × 10 J</div>
+          <div class="ex-choice" onclick="checkAns(5,'B')"><span class="ex-letter">B.</span> 2,27 × 10 J</div>
+          <div class="ex-choice" onclick="checkAns(5,'C')"><span class="ex-letter">C.</span> 6,80 × 10² J</div>
+          <div class="ex-choice" onclick="checkAns(5,'D')"><span class="ex-letter">D.</span> 4,08 × 10⁴ J</div>
+          <div class="ex-choice" onclick="checkAns(5,'E')"><span class="ex-letter">E.</span> 8,02 × 10⁴ J</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(5)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol5">
+          <h4>✅ Pembahasan</h4>
+          <p>Gunakan rumus konduksi kalor:</p>
+          <div class="sol-step">Q = (kAΔT/L) × t</div>
+          <div class="sol-step">A = 17 cm² = 17 × 10⁻⁴ m²</div>
+          <div class="sol-step">Q = (4×10⁵ × 17×10⁻⁴ × 30 / 1) × 2</div>
+          <div class="sol-step">Q = (4×10⁵ × 17×10⁻⁴ × 30) × 2</div>
+          <div class="sol-step">Q = (4 × 17 × 30 × 10⁵⁻⁴) × 2 = (2040 × 10) × 2 = 40.800 J</div>
+          <div class="sol-step">Q = 4,08 × 10⁴ J</div>
+          <div class="sol-ans">Jawaban: D. 4,08 × 10⁴ J</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 6 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(6)">
+        <div class="ex-num">6</div>
+        <div class="ex-q">Ketel listrik 3 kW berisi 2 liter air 20°C dialiri arus 15 menit. c_air = 4,2 kJ/kg°C, L_uap = 2300 kJ/kg. Sisa air dalam ketel adalah…</div>
+        <div class="ex-toggle" id="tog6">▼</div>
+      </div>
+      <div class="ex-body" id="body6">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(6,'A')"><span class="ex-letter">A.</span> 0,8 liter</div>
+          <div class="ex-choice" onclick="checkAns(6,'B')"><span class="ex-letter">B.</span> 1,1 liter</div>
+          <div class="ex-choice" onclick="checkAns(6,'C')"><span class="ex-letter">C.</span> 1,5 liter</div>
+          <div class="ex-choice" onclick="checkAns(6,'D')"><span class="ex-letter">D.</span> 1,8 liter</div>
+          <div class="ex-choice" onclick="checkAns(6,'E')"><span class="ex-letter">E.</span> 2,0 liter</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(6)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol6">
+          <h4>✅ Pembahasan</h4>
+          <p>Energi ketel = P × t = 3000 W × 900 s = 2.700.000 J = 2.700 kJ</p>
+          <div class="sol-step">m₁ = ρV = 1000 × 0,002 = 2 kg</div>
+          <div class="sol-step">Q_serap = m₁·c·ΔT + m_uap·L_uap = Energi ketel</div>
+          <div class="sol-step">2 × 4,2 × (100–20) + m_uap × 2300 = 2700</div>
+          <div class="sol-step">672 + m_uap × 2300 = 2700</div>
+          <div class="sol-step">m_uap = (2700–672)/2300 = 2028/2300 ≈ 0,9 kg</div>
+          <div class="sol-step">m_sisa = 2 – 0,9 = 1,1 kg → V = 1,1 liter</div>
+          <div class="sol-ans">Jawaban: B. 1,1 liter</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 7 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(7)">
+        <div class="ex-num">7</div>
+        <div class="ex-q">Rel kereta api panjang 10 m dipasang pada suhu 20°C. Koefisien muai panjang α = 12×10⁻⁶/°C. Jarak antara dua batang rel pada suhu 20°C agar tidak melengkung pada suhu 30°C adalah…</div>
+        <div class="ex-toggle" id="tog7">▼</div>
+      </div>
+      <div class="ex-body" id="body7">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(7,'A')"><span class="ex-letter">A.</span> 3,6 mm</div>
+          <div class="ex-choice" onclick="checkAns(7,'B')"><span class="ex-letter">B.</span> 2,4 mm</div>
+          <div class="ex-choice" onclick="checkAns(7,'C')"><span class="ex-letter">C.</span> 1,2 mm</div>
+          <div class="ex-choice" onclick="checkAns(7,'D')"><span class="ex-letter">D.</span> 0,8 mm</div>
+          <div class="ex-choice" onclick="checkAns(7,'E')"><span class="ex-letter">E.</span> 0,6 mm</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(7)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol7">
+          <h4>✅ Pembahasan</h4>
+          <p>Setiap batang akan memuai sebesar ΔL:</p>
+          <div class="sol-step">ΔL = α · L₀ · ΔT</div>
+          <div class="sol-step">ΔL = 12×10⁻⁶ × 10 × (30–20)</div>
+          <div class="sol-step">ΔL = 12×10⁻⁶ × 10 × 10 = 1200×10⁻⁶ m = 1,2 mm</div>
+          <p style="margin-top:10px;">Karena dua batang memuai, jarak yang diperlukan = 2 × ΔL:</p>
+          <div class="sol-step">Jarak = 2 × 1,2 mm = 2,4 mm</div>
+          <div class="sol-ans">Jawaban: B. 2,4 mm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 8 -->
+    <div class="exercise-card">
+      <div class="ex-header" onclick="toggleEx(8)">
+        <div class="ex-num">8</div>
+        <div class="ex-q">Perbandingan laju kalor yang dipancarkan oleh benda hitam bersuhu 4000 K dan 2000 K adalah…</div>
+        <div class="ex-toggle" id="tog8">▼</div>
+      </div>
+      <div class="ex-body" id="body8">
+        <div class="ex-choices">
+          <div class="ex-choice" onclick="checkAns(8,'A')"><span class="ex-letter">A.</span> 1:1</div>
+          <div class="ex-choice" onclick="checkAns(8,'B')"><span class="ex-letter">B.</span> 2:1</div>
+          <div class="ex-choice" onclick="checkAns(8,'C')"><span class="ex-letter">C.</span> 4:1</div>
+          <div class="ex-choice" onclick="checkAns(8,'D')"><span class="ex-letter">D.</span> 8:1</div>
+          <div class="ex-choice" onclick="checkAns(8,'E')"><span class="ex-letter">E.</span> 16:1</div>
+        </div>
+        <button class="check-btn" onclick="showSolution(8)">Lihat Pembahasan</button>
+        <div class="ex-solution" id="sol8">
+          <h4>✅ Pembahasan</h4>
+          <p>Gunakan hukum Stefan-Boltzmann: P = σAT⁴. Dengan e dan A sama:</p>
+          <div class="sol-step">P₁/P₂ = T₁⁴/T₂⁴ = (T₁/T₂)⁴</div>
+          <div class="sol-step">P₁/P₂ = (4000/2000)⁴ = 2⁴ = 16</div>
+          <div class="sol-ans">Jawaban: E. 16:1</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end latihan -->
+
+</div><!-- end container -->
+
+<div class="footer">
+  <p>📚 Workbook Fisika SMA • Suhu, Kalor, dan Perpindahan Kalor</p>
+  <p style="margin-top: 4px; opacity: 0.6;">Referensi: Big Book Fisika SMA Kelas 1, 2, 3 (Supadi, S.Si., M.Si., Dewi Rossalia, M.P.)</p>
+</div>
+
+<script>
+  // TOGGLE EXERCISE
+  const answers = { 1:'C', 2:'D', 3:'C', 4:'B', 5:'D', 6:'B', 7:'B', 8:'E' };
+
+  function toggleEx(n) {
+    const body = document.getElementById('body' + n);
+    const tog = document.getElementById('tog' + n);
+    const isOpen = body.classList.contains('show');
+    body.classList.toggle('show', !isOpen);
+    tog.classList.toggle('open', !isOpen);
+  }
+
+  function checkAns(n, chosen) {
+    const choices = document.querySelectorAll(`#body${n} .ex-choice`);
+    const correct = answers[n];
+    const letters = ['A','B','C','D','E'];
+    choices.forEach((el, i) => {
+      el.classList.remove('correct', 'wrong');
+      if (letters[i] === correct) el.classList.add('correct');
+      else if (letters[i] === chosen && chosen !== correct) el.classList.add('wrong');
+    });
+  }
+
+  function showSolution(n) {
+    const sol = document.getElementById('sol' + n);
+    sol.classList.toggle('show');
+  }
+
+  // TEMPERATURE CONVERTER
+  function convertTemp() {
+    const val = parseFloat(document.getElementById('inputTemp').value);
+    const scale = document.getElementById('inputScale').value;
+    if (isNaN(val)) return;
+
+    let celsius;
+    if (scale === 'C') celsius = val;
+    else if (scale === 'F') celsius = (val - 32) * 5/9;
+    else if (scale === 'K') celsius = val - 273;
+    else if (scale === 'R') celsius = val * 5/4;
+
+    const kelvin = celsius + 273;
+    const fahrenheit = celsius * 9/5 + 32;
+    const reamur = celsius * 4/5;
+
+    const results = [
+      { label: '°C (Celsius)', val: celsius.toFixed(2) },
+      { label: '°F (Fahrenheit)', val: fahrenheit.toFixed(2) },
+      { label: 'K (Kelvin)', val: kelvin.toFixed(2) },
+      { label: '°R (Reamur)', val: reamur.toFixed(2) },
+    ];
+
+    const container = document.getElementById('convResults');
+    container.innerHTML = results.map(r => `
+      <div class="conv-result-item">
+        <div class="cri-label">${r.label}</div>
+        <div class="cri-val">${r.val}</div>
+      </div>
+    `).join('');
+  }
+
+  // Init converter
+  convertTemp();
+
+  // Smooth scroll for TOC
+  document.querySelectorAll('.toc-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(btn.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
